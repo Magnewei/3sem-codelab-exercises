@@ -26,7 +26,7 @@ public class StudentDaoImpl implements GenericDAO<Student, Integer> {
     }
 
     @Override
-    public List<Student> findAll() {
+    public Collection<Student> findAll() {
         try(EntityManager em = emf.createEntityManager()) {
             TypedQuery<Student> query = em.createQuery("SELECT s FROM Student s", Student.class);
             return query.getResultList();
