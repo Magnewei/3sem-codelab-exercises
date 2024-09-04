@@ -23,6 +23,7 @@ public class TeacherDaoImplTest {
         teacherDao = TeacherDaoImpl.getInstance(emf);
     }
 
+
     @AfterAll
     public void tearDown() {
         // Clean up after each test
