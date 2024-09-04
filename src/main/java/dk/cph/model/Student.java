@@ -36,11 +36,7 @@ public class Student {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "student_course",
-            joinColumns = @JoinColumn(name = "course_id"),
-            inverseJoinColumns = @JoinColumn(name = "student_id"))
+    @ManyToMany(mappedBy = "students", cascade = CascadeType.ALL)
     private Set<Course> courses = new HashSet<>();
 
 
