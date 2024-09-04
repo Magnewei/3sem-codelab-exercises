@@ -22,6 +22,7 @@ public class TeacherDaoImplTest {
         emf = HibernateConfig.getEntityManagerFactoryConfig(HibernateConfigState.TEST);
         teacherDao = TeacherDaoImpl.getInstance(emf);
     }
+    //:D
 
     @AfterAll
     public void tearDown() {
