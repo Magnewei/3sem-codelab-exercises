@@ -1,5 +1,6 @@
 package dk.cph.dao;
 
+import dk.cph.config.HibernateConfig;
 import dk.cph.model.Course;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class CourseDaoImpl implements GenericDAO<Course> {
+public class CourseDaoImpl implements GenericDAO<Course,Integer> {
 
     private static CourseDaoImpl instance;
     private static EntityManagerFactory emf;
@@ -26,38 +27,48 @@ public class CourseDaoImpl implements GenericDAO<Course> {
         return instance;
     }
 
+
     @Override
-    public Set<Course> findAll(int maxResults) {
-        try (EntityManager em = emf.createEntityManager()) {
-            TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c", Course.class)
-                    .setMaxResults(maxResults);
-            return query.getResultList().stream().collect(Collectors.toSet());
+    public List<Course> findAll() {
+        try(EntityManager em = emf.createEntityManager()) {
+            TypedQuery<Course> query = em.createQuery("SELECT c FROM Course c", Course.class);
+            return query.getResultList();
         }
     }
 
     @Override
-    public void removeEntity(Course id) {
-
-    }
-
-    @Override
-    public Course findEntity(Course id) {
-        try (EntityManager em = emf.createEntityManager()) {
-            return em.find(Course.class, id);
-        }
-    }
-
-    @Override
-    public Course updateEntity(Object entity, Object id) {
-        return null;
-    }
-
-    @Override
-    public void persistEntity(Course course, ) {
-        try (EntityManager em = emf.createEntityManager()) {
+    public void persistEntity(Course course) {
+        try(EntityManager em = emf.createEntityManager()) {
             em.getTransaction().begin();
             em.persist(course);
             em.getTransaction().commit();
         }
     }
+
+    @Override
+    public void removeEntity(Integer id) {
+        try(EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            Course course = em.find(Course.class, id);
+            em.remove(course);
+            em.getTransaction().commit();
+        }
+    }
+
+    @Override
+    public Course findEntity(Integer id) {
+        try(EntityManager em = emf.createEntityManager()) {
+            return em.find(Course.class, id);
+        }
+    }
+
+    @Override
+    public void updateEntity(Course course, Integer id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+            em.merge(course);
+            em.getTransaction().commit();
+        }
+    }
+
 }
