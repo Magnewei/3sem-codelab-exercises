@@ -33,3 +33,4 @@ public class Course {
             inverseJoinColumns = @JoinColumn(name = "student_id"))
     private Set<Student> students;
 }
+
