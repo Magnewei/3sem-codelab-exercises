@@ -15,6 +15,9 @@ public class HibernateConfig {
     private static EntityManagerFactory entityManagerFactory;
 
     private static void getAnnotationConfiguration(Configuration configuration) {
+        configuration.addAnnotatedClass(dk.cph.model.Course.class);
+        configuration.addAnnotatedClass(dk.cph.model.Student.class);
+        configuration.addAnnotatedClass(dk.cph.model.Teacher.class);
         // add annotated classes --- remember to add new entities here
         //configuration.addAnnotatedClass(Package.class);
     }

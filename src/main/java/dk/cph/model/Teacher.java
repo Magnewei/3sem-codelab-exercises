@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "teachers")
+@Table(name = "teacher")
 @Data
 @NamedQuery(name = "Teacher.deleteAll", query = "DELETE FROM Teacher")
 public class Teacher {
