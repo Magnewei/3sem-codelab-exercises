@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 
-
 @Entity
 @Table(name = "teachers")
 @NoArgsConstructor
@@ -25,5 +24,8 @@ public class Teacher {
 
     @Column(name = "zoom", unique = true)
     private String zoom;
+
+    @ManyToOne
+    private Course course;
 
 }
